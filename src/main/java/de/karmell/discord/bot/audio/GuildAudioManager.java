@@ -65,9 +65,11 @@ public class GuildAudioManager extends AudioEventAdapter {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    guild.getAudioManager().setSendingHandler(null);
-                    guild.getAudioManager().closeAudioConnection();
-                    Main.GUILD_MUSIC_MANAGERS.remove(guild.getId());
+                    if(queue.isEmpty()) {
+                        guild.getAudioManager().setSendingHandler(null);
+                        guild.getAudioManager().closeAudioConnection();
+                        Main.GUILD_MUSIC_MANAGERS.remove(guild.getId());
+                    }
                 }
             }, 15000);
         }
