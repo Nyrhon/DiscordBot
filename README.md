@@ -6,6 +6,7 @@ Functionality includes music / sound playback via YouTube, chat commands and min
 ## Features
 
 Music commands:
+
 | Command | Function |
 | ------- | -------- |
 | play x | Plays song or playlist x (url or search term). |
@@ -20,10 +21,12 @@ Music commands:
 
 
 Game commands:
+
 | Command | Function |
 | ------- | -------- |
 
 General commands:
+
 | Command | Function |
 | ------- | -------- |
 | help | Returns a list of all commands and their descriptions. |
@@ -35,6 +38,7 @@ General commands:
 The bot can be configured to allow only certain roles / people on a Discord to use commands.
 By default the configuration commands can only be accessed by the guild owner.
 Configuration commands:
+
 | Command | Function |
 | ------- | -------- |
 
