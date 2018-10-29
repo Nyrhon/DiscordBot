@@ -1,7 +1,0 @@
-Socket access for web interface
-Full playlist on website
-
-Permission check when deleting messages (purge, bot owned channels)
-Role based permission system for accessing commands
-Configuration of command prefix for each guild
-Database support to store information / configurations about guilds

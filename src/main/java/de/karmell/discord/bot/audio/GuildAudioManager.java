@@ -5,12 +5,11 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
-import de.karmell.discord.bot.Main;
-import net.dv8tion.jda.core.EmbedBuilder;
+import de.karmell.discord.bot.Bot;
+import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
-import java.awt.Color;
 import java.util.*;
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class GuildAudioManager extends AudioEventAdapter {
                     if(queue.isEmpty()) {
                         guild.getAudioManager().setSendingHandler(null);
                         guild.getAudioManager().closeAudioConnection();
-                        Main.GUILD_MUSIC_MANAGERS.remove(guild.getId());
+                        Bot.getGuildAudioManagers().remove(guild.getId());
                     }
                 }
             }, 15000);
@@ -78,25 +77,21 @@ public class GuildAudioManager extends AudioEventAdapter {
         }
         loop = false;
         player.startTrack(queue.poll(), false);
-        EmbedBuilder embed = new EmbedBuilder();
-        embed.setColor(Color.ORANGE);
-        embed.addField("Now playing", "[" + player.getPlayingTrack().getInfo().title + "](" +
-                player.getPlayingTrack().getInfo().uri +")", false);
-        channel.sendMessage(embed.build()).queue();
+        if(player.getPlayingTrack() != null) {
+            channel.sendMessage(MessageUtil.songInfo("Now playing", player.getPlayingTrack().getInfo())).queue();
+        }
     }
 
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason)
     {
-        if (loop) {
-            player.startTrack(track.makeClone(), false);
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setColor(Color.ORANGE);
-            embed.addField("Now playing", "[" + player.getPlayingTrack().getInfo().title + "](" +
-                    player.getPlayingTrack().getInfo().uri +")", false);
-            channel.sendMessage(embed.build()).queue();
-        } else {
-            skip();
+        if(endReason.mayStartNext) {
+            if (loop) {
+                player.startTrack(track.makeClone(), false);
+                channel.sendMessage(MessageUtil.songInfo("Now playing", player.getPlayingTrack().getInfo())).queue();
+            } else {
+                skip();
+            }
         }
     }
 }

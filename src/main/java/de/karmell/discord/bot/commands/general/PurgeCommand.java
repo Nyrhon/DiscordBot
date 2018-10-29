@@ -1,12 +1,18 @@
-package de.karmell.discord.bot.commands;
+package de.karmell.discord.bot.commands.general;
 
+import de.karmell.discord.bot.core.Command;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageHistory;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
-public class PurgeCommand implements Command {
+public class PurgeCommand extends Command {
+
+    public PurgeCommand() {
+        super(new String[]{"purge"}, CommandCategory.GENERAL, "Removes the last x messages from the the channel.");
+    }
+
     @Override
     public void invoke(String[] args, MessageReceivedEvent event) {
         if(event.getTextChannel().getType().isGuild()) {
@@ -31,10 +37,5 @@ public class PurgeCommand implements Command {
                 }
             }
         }
-    }
-
-    @Override
-    public String describe() {
-        return "Purges the last x messages";
     }
 }

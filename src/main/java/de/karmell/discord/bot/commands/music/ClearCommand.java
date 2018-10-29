@@ -1,31 +1,25 @@
 package de.karmell.discord.bot.commands.music;
 
-import de.karmell.discord.bot.Main;
+import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.audio.GuildAudioManager;
-import de.karmell.discord.bot.commands.Command;
-import net.dv8tion.jda.core.EmbedBuilder;
+import de.karmell.discord.bot.core.Command;
+import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-import java.awt.*;
-
-public class ClearCommand implements Command {
-    @Override
-    public void invoke(String[] args, MessageReceivedEvent event) {
-        if(event.getChannel().getType().isGuild()) {
-            GuildAudioManager manager = Main.GUILD_MUSIC_MANAGERS.get(event.getGuild().getId());
-            if(manager != null && manager.getMessageChannel().getId().equals(event.getChannel().getId())) {
-                manager.getQueue().clear();
-                manager.getPlayer().stopTrack();
-                EmbedBuilder embed = new EmbedBuilder();
-                embed.setColor(Color.ORANGE);
-                embed.addField("", "Playlist has been cleared.", false);
-                event.getChannel().sendMessage(embed.build()).queue();
-            }
-        }
+public class ClearCommand extends Command {
+    public ClearCommand() {
+        super(new String[] {"clear"}, CommandCategory.MUSIC, "Clears the current queue.");
     }
 
     @Override
-    public String describe() {
-        return "Clears the queue.";
+    public void invoke(String[] args, MessageReceivedEvent event) {
+        if(event.getChannel().getType().isGuild()) {
+            GuildAudioManager manager = Bot.getGuildAudioManagers().get(event.getGuild().getId());
+            if(manager != null && manager.getMessageChannel().getId().equals(event.getChannel().getId())) {
+                manager.getQueue().clear();
+                manager.getPlayer().stopTrack();
+                event.getChannel().sendMessage(MessageUtil.simpleMessage("Playlist has been cleared.")).queue();
+            }
+        }
     }
 }

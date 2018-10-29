@@ -1,34 +1,28 @@
 package de.karmell.discord.bot.commands.music;
 
-import de.karmell.discord.bot.Main;
+import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.audio.GuildAudioManager;
-import de.karmell.discord.bot.commands.Command;
-import net.dv8tion.jda.core.EmbedBuilder;
+import de.karmell.discord.bot.core.Command;
+import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-import java.awt.*;
-
-public class ShuffleCommand implements Command {
-    @Override
-    public void invoke(String[] args, MessageReceivedEvent event) {
-        if(event.getChannel().getType().isGuild()) {
-            GuildAudioManager manager = Main.GUILD_MUSIC_MANAGERS.get(event.getGuild().getId());
-            if(manager != null && manager.getMessageChannel().getId().equals(event.getChannel().getId())) {
-                EmbedBuilder embed = new EmbedBuilder();
-                embed.setColor(Color.ORANGE);
-                if(manager.isShuffling()) {
-                    embed.addField("", "Stopped shuffle playback.", false);
-                } else {
-                    embed.addField("", "Started shuffle playback.", false);
-                }
-                manager.setShuffle(!manager.isShuffling());
-                event.getChannel().sendMessage(embed.build()).queue();
-            }
-        }
+public class ShuffleCommand extends Command {
+    public ShuffleCommand() {
+        super(new String[]{"shuffle"}, CommandCategory.MUSIC, "Starts shuffle playback.");
     }
 
     @Override
-    public String describe() {
-        return "Shuffles all currently queued songs";
+    public void invoke(String[] args, MessageReceivedEvent event) {
+        if(event.getChannel().getType().isGuild()) {
+            GuildAudioManager manager = Bot.getGuildAudioManagers().get(event.getGuild().getId());
+            if(manager != null && manager.getMessageChannel().getId().equals(event.getChannel().getId())) {
+                if(manager.isShuffling()) {
+                    event.getChannel().sendMessage(MessageUtil.simpleMessage("Stopping shuffle playback.")).queue();
+                } else {
+                    event.getChannel().sendMessage(MessageUtil.simpleMessage("Starting shuffle playback.")).queue();
+                }
+                manager.setShuffle(!manager.isShuffling());
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ General commands:
 ## Configuration
 
 The bot can be configured to allow only certain roles / people on a Discord to use commands.
-By default the configuration commands can only be accessed by the guild owner.
+By default the configuration commands can only be accessed by the guildId owner.
 Configuration commands:
 
 | Command | Function |
@@ -45,7 +45,7 @@ Configuration commands:
 
 ## Self hosting
 
-The bot can be self hosted to be used on your own Discord guild(s).
+The bot can be self hosted to be used on your own Discord guildId(s).
 To use the bot simply build the project with
 ```
 mvn install
