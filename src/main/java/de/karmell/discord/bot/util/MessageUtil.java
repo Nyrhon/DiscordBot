@@ -33,8 +33,16 @@ public class MessageUtil {
 
     public static MessageEmbed songInfo(String header, AudioTrackInfo trackInfo) {
         Duration d = Duration.of(trackInfo.length, ChronoUnit.MILLIS);
-        return newEmbed(header, "[" + trackInfo.title + "](" + trackInfo.uri + ")\n`Duration:` " +
-                String.format("%d:%02d%n", d.toMinutes(), d.minusMinutes(d.toMinutes()).getSeconds()), false, INFO_COLOR);
+        long toHours = d.toHours();
+        long toMinutes = d.minusHours(toHours).toMinutes();
+        long toSeconds = d.minusMinutes(toMinutes).toSeconds();
+        if(toHours == 0) {
+            return newEmbed(header, "[**" + trackInfo.title + "**](" + trackInfo.uri + ")\nDuration: " +
+                    String.format("%d:%02d%n", toMinutes, toSeconds), false, INFO_COLOR);
+        } else {
+            return newEmbed(header, "[" + trackInfo.title + "](" + trackInfo.uri + ")\n`Duration:` " +
+                    String.format("%d:%02d:%02d%n", toHours, toMinutes, toSeconds), false, INFO_COLOR);
+        }
     }
 
     private static MessageEmbed newEmbed(String header, String message, boolean inline, Color color) {
