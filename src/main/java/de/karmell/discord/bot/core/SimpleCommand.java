@@ -1,5 +1,8 @@
 package de.karmell.discord.bot.core;
 
+/**
+ * Simple command which responds with a predefined text to an invoke.
+ */
 public class SimpleCommand {
     private String invoke;
     private String response;

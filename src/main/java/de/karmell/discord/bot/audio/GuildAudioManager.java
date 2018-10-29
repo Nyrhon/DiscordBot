@@ -13,6 +13,9 @@ import net.dv8tion.jda.core.entities.MessageChannel;
 import java.util.*;
 import java.util.List;
 
+/**
+ * Manages everything audio related for a single guild.
+ */
 public class GuildAudioManager extends AudioEventAdapter {
     private final AudioPlayer player;
     private final AudioPlayerSendHandler sendHandler;
@@ -52,19 +55,26 @@ public class GuildAudioManager extends AudioEventAdapter {
         return queue;
     }
 
+    /**
+     * Queues the specified AudioTrack
+     * @param track to be queued
+     */
     public void queue(AudioTrack track) {
         if (!player.startTrack(track, true)) {
             queue.offer(track);
         }
     }
 
+    /**
+     * Skips the current song and sets a Timer task to leave the voice channel when inactive.
+     */
     public void skip() {
         if(queue.isEmpty()) {
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    if(queue.isEmpty()) {
+                    if(queue.isEmpty() && player.getPlayingTrack() == null) {
                         guild.getAudioManager().setSendingHandler(null);
                         guild.getAudioManager().closeAudioConnection();
                         Bot.getGuildAudioManagers().remove(guild.getId());

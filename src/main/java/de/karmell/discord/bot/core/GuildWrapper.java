@@ -3,6 +3,9 @@ package de.karmell.discord.bot.core;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Wrapper to contain additional information about a guild to store in a database.
+ */
 public class GuildWrapper {
     private String guildId;
     private List<SimpleCommand> simpleCommands;

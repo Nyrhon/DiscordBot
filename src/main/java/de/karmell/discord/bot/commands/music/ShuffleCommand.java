@@ -6,6 +6,9 @@ import de.karmell.discord.bot.core.Command;
 import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+/**
+ * Starts / stops shuffling mode.
+ */
 public class ShuffleCommand extends Command {
     public ShuffleCommand() {
         super(new String[]{"shuffle"}, CommandCategory.MUSIC, "Starts shuffle playback.");

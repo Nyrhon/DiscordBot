@@ -10,6 +10,9 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import java.util.ArrayList;
 import java.util.Queue;
 
+/**
+ * Shows information about the upcoming songs
+ */
 public class QueueCommand extends Command {
     public QueueCommand() {
         super(new String[]{"queue"}, CommandCategory.MUSIC, "Shows a list of upcoming songs.");
@@ -20,19 +23,24 @@ public class QueueCommand extends Command {
         if (event.getChannel().getType().isGuild()) {
             GuildAudioManager manager = Bot.getGuildAudioManagers().get(event.getGuild().getId());
             if (manager != null && manager.getMessageChannel().getId().equals(event.getChannel().getId())) {
-                StringBuilder builder = new StringBuilder();
-                Queue<AudioTrack> tracks = manager.getQueue();
-                ArrayList<AudioTrack> itrTracks = new ArrayList<>(tracks);
-                for (int i = 0; i < itrTracks.size() && i < 10; i++) {
-                    builder.append("`" + (i + 1) + ":` " + itrTracks.get(i).getInfo().title + "\n");
+                if(manager.isShuffling()) {
+                    event.getChannel().sendMessage(MessageUtil
+                            .simpleMessage("Currently in shuffle mode so you are going to get surprised on what's up next.")).queue();
+                } else {
+                    StringBuilder builder = new StringBuilder();
+                    Queue<AudioTrack> tracks = manager.getQueue();
+                    ArrayList<AudioTrack> itrTracks = new ArrayList<>(tracks);
+                    for (int i = 0; i < itrTracks.size() && i < 10; i++) {
+                        builder.append("`" + (i + 1) + ":` " + itrTracks.get(i).getInfo().title + "\n");
+                    }
+                    if (itrTracks.size() > 10) {
+                        builder.append("And " + (itrTracks.size() - 10) + " more in queue");
+                    }
+                    if (itrTracks.size() == 0) {
+                        builder.append("There are no songs in the queue right now.");
+                    }
+                    event.getChannel().sendMessage(MessageUtil.simpleMessage("Queued songs", builder.toString())).queue();
                 }
-                if (itrTracks.size() > 10) {
-                    builder.append("And " + (itrTracks.size() - 10) + " more in queue");
-                }
-                if (itrTracks.size() == 0) {
-                    builder.append("There are no songs in the queue right now.");
-                }
-                event.getChannel().sendMessage(MessageUtil.simpleMessage("Queued songs", builder.toString())).queue();
             }
         }
     }

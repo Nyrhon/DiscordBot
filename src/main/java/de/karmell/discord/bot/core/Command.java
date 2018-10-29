@@ -2,6 +2,9 @@ package de.karmell.discord.bot.core;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+/**
+ * Basic Command class to contain aliases, a CommandCategory and description.
+ */
 public abstract class Command {
     protected String[] aliases;
     protected CommandCategory category;
@@ -13,6 +16,11 @@ public abstract class Command {
         this.description = description;
     }
 
+    /**
+     * To be called when invoking the command.
+     * @param args Arguments given after the command invoke
+     * @param event MessageEvent to retrieve author, channel, guild information etc.
+     */
     public abstract void invoke(String[] args, MessageReceivedEvent event);
 
     public String[] getAliases() {

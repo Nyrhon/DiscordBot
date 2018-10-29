@@ -8,6 +8,9 @@ import java.awt.*;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Utility class to create EmbedMessages to maintain a unified look.
+ */
 public class MessageUtil {
     public static final Color ERROR_COLOR = Color.RED;
     public static final Color INFO_COLOR = Color.ORANGE;

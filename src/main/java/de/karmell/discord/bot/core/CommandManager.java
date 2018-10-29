@@ -1,6 +1,5 @@
 package de.karmell.discord.bot.core;
 
-import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -11,6 +10,9 @@ import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Wrapper class to contain registered commands and handle the logic of invoking commands.
+ */
 public class CommandManager {
     private Map<String, Command> commands;
     private final String prefix;

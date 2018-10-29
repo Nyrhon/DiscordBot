@@ -6,32 +6,34 @@ import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-import java.awt.*;
 import java.util.Comparator;
-import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Help command to get a list of all commands / description of a single command.
+ */
 public class HelpCommand extends Command {
-
     public HelpCommand() {
         super(new String[]{"help", "h"}, CommandCategory.GENERAL, "Shows information about a specific / all command(s)");
     }
 
+    @Override
     public void invoke(String[] args, MessageReceivedEvent event) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(MessageUtil.INFO_COLOR);
         if(args.length > 0) {
             Command command = Bot.getCommandManager().getCommand(args[0]);
             if(command == null) {
-                embedBuilder.setColor(MessageUtil.ERROR_COLOR);
-                embedBuilder.setDescription("Unknown command.");
+                event.getChannel().sendMessage(MessageUtil.errorMessage("Unknown command.")).queue();
             } else {
-                embedBuilder.addField("Description for: " + args[0], command.getDescription(), true);
+                event.getChannel().sendMessage(MessageUtil.simpleMessage("Description for: " + args[0],
+                        command.getDescription())).queue();
             }
         } else {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setColor(MessageUtil.INFO_COLOR);
             embedBuilder.addField("Guild settings", "`prefix`: " + Bot.getConfig().COMMAND_PREFIX + "\n", false);
             for(CommandCategory cc : CommandCategory.class.getEnumConstants()) {
                 StringBuilder cd = new StringBuilder();
+                // sorts and filters all commands for the currently iterated category
                 Bot.getCommandManager().getCommands().values().stream().distinct()
                         .sorted(Comparator.comparing(com -> com.getAliases()[0]))
                         .filter(c -> c.getCategory() == cc).collect(Collectors.toList())
@@ -44,7 +46,7 @@ public class HelpCommand extends Command {
                     embedBuilder.addField(cc.getDisplay(), cds, false);
                 }
             }
+            event.getChannel().sendMessage(embedBuilder.build()).queue();
         }
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 }

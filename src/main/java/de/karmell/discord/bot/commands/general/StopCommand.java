@@ -4,11 +4,15 @@ import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.core.Command;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+/**
+ * Stops the bot.
+ */
 public class StopCommand extends Command {
     public StopCommand() {
         super(new String[]{"stop"}, CommandCategory.GENERAL, "Stops the bot.");
     }
 
+    @Override
     public void invoke(String[] args, MessageReceivedEvent event) {
         if(!event.getAuthor().getId().equals(Bot.getConfig().BOT_OWNER)) {
             event.getChannel().sendMessage("You're not my dad! :baby:").queue();

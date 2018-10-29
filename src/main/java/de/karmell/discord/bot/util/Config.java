@@ -3,6 +3,9 @@ package de.karmell.discord.bot.util;
 import java.io.*;
 import java.util.Properties;
 
+/**
+ * Wrapper class to load a properties file and parse the content as static attributes.
+ */
 public class Config {
     public final String BOT_TOKEN;
     public final String COMMAND_PREFIX;

@@ -7,8 +7,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
+/**
+ * Deletes the last x messages when invoked
+ */
 public class PurgeCommand extends Command {
-
     public PurgeCommand() {
         super(new String[]{"purge"}, CommandCategory.GENERAL, "Removes the last x messages from the the channel.");
     }

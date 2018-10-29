@@ -5,6 +5,9 @@ import de.karmell.discord.bot.audio.GuildAudioManager;
 import de.karmell.discord.bot.core.Command;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+/**
+ * Makes the bot leave the voice channel and delete the guild audio manager
+ */
 public class LeaveCommand extends Command {
     public LeaveCommand() {
         super(new String[]{"leave"}, CommandCategory.MUSIC, "Makes the bot leave the voice channel and clear the queue.");

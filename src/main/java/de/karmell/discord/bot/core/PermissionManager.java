@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Manages permissions for accessing commands (role based command access)
+ */
 public class PermissionManager {
     private Map<String, List<String>> invokeAccessibleRoles;
 

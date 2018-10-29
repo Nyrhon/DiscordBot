@@ -6,6 +6,9 @@ import de.karmell.discord.bot.core.Command;
 import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+/**
+ * Starts / stops looping of the current song.
+ */
 public class LoopCommand extends Command {
     public LoopCommand() {
         super(new String[]{"loop"}, CommandCategory.MUSIC, "Makes the bot loop the current song.");

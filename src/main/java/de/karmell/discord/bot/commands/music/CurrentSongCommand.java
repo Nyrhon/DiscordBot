@@ -7,6 +7,9 @@ import de.karmell.discord.bot.core.Command;
 import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+/**
+ * Shows information about the currently playing song.
+ */
 public class CurrentSongCommand extends Command {
     public CurrentSongCommand() {
         super(new String[]{"current"}, CommandCategory.MUSIC, "Shows information for the current song.");

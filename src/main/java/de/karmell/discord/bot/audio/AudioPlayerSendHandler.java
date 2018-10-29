@@ -4,6 +4,10 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
 import net.dv8tion.jda.core.audio.AudioSendHandler;
 
+
+/**
+ * Implementation as mentioned by https://github.com/sedmelluq/lavaplayer to integrate with JDA
+ */
 public class AudioPlayerSendHandler implements AudioSendHandler
 {
     private final AudioPlayer audioPlayer;

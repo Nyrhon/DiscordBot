@@ -6,6 +6,9 @@ import de.karmell.discord.bot.core.Command;
 import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+/**
+ * Pauses playback of the current song.
+ */
 public class PauseCommand extends Command {
     public PauseCommand() {
         super(new String[]{"pause"}, CommandCategory.MUSIC, "Pauses the music playback.");

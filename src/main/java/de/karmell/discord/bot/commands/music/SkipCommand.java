@@ -8,9 +8,12 @@ import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 
+/**
+ * Skips the current song.
+ */
 public class SkipCommand extends Command {
     public SkipCommand() {
-        super(new String[]{"skip", "s"}, CommandCategory.MUSIC, "Skips the current song.");
+        super(new String[]{"skip", "s", "next"}, CommandCategory.MUSIC, "Skips the current song.");
     }
 
     @Override
