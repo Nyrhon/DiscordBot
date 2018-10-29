@@ -54,8 +54,8 @@ public class PlayCommand extends Command {
                     loadAndPlay = true;
                     manager.setMessageChannel(event.getChannel());
                     manager.setGuild(event.getGuild());
-                    event.getChannel().sendMessage(MessageUtil.simpleMessage("Joining voice channel " + channelToJoin.getName()
-                            + " and bound music commands and notifications to " + event.getChannel().getName())).queue();
+                    event.getChannel().sendMessage(MessageUtil.simpleMessage("Joining voice channel **" + channelToJoin.getName()
+                            + "** and bound music commands and notifications to **" + event.getChannel().getName() + "**")).queue();
                 }
             } else {
                 loadAndPlay = true;
