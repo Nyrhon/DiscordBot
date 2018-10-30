@@ -24,6 +24,11 @@ Game commands:
 
 | Command | Function |
 | ------- | -------- |
+| invite x y | Invites person y to a game of type x. |
+| accept | Accepts a pending invitation. |
+| decline | Declines a pending game invitation. |
+| cancel | Cancels a pending game invitation. |
+| move | Performs a move for the game the user is currently playing. |
 
 General commands:
 
