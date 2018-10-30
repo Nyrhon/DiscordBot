@@ -12,17 +12,13 @@ public class GuildWrapper {
     private String guildId;
     private List<SimpleCommand> simpleCommands;
     private List<String> disabledCommands;
-    private long[] dedicatedChannels;
-    private boolean[] autoClear;
-    private boolean exclusive;
+    private List<DedicatedChannel> dedicatedChannels;
 
     public GuildWrapper(String guildId) {
         this.guildId = guildId;
         simpleCommands = new ArrayList<>(); // TODO build up from database
         disabledCommands = new ArrayList<>(); // TODO build up from database
-        dedicatedChannels = new long[0];
-        autoClear = new boolean[0];
-        exclusive = false;
+        dedicatedChannels = new ArrayList<>();
     }
 
     public String getGuildId() {
@@ -49,27 +45,11 @@ public class GuildWrapper {
         this.disabledCommands = disabledCommands;
     }
 
-    public long[] getDedicatedChannels() {
+    public List<DedicatedChannel> getDedicatedChannels() {
         return dedicatedChannels;
     }
 
-    public void setDedicatedChannels(long[] dedicatedChannels) {
+    public void setDedicatedChannels(List<DedicatedChannel> dedicatedChannels) {
         this.dedicatedChannels = dedicatedChannels;
-    }
-
-    public boolean[] getAutoClear() {
-        return autoClear;
-    }
-
-    public void setAutoClear(boolean[] autoClear) {
-        this.autoClear = autoClear;
-    }
-
-    public boolean isExclusive() {
-        return exclusive;
-    }
-
-    public void setExclusive(boolean exclusive) {
-        this.exclusive = exclusive;
     }
 }
