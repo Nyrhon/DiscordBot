@@ -1,4 +1,6 @@
-package de.karmell.discord.bot.core;
+package de.karmell.discord.bot.util;
+
+import de.karmell.discord.bot.commands.SimpleCommand;
 
 import java.util.ArrayList;
 import java.util.List;

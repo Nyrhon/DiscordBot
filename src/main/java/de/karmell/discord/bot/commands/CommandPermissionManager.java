@@ -1,4 +1,4 @@
-package de.karmell.discord.bot.core;
+package de.karmell.discord.bot.commands;
 
 import net.dv8tion.jda.core.entities.Role;
 
@@ -10,10 +10,10 @@ import java.util.Map;
 /**
  * Manages permissions for accessing commands (role based command access)
  */
-public class PermissionManager {
+public class CommandPermissionManager {
     private Map<String, List<String>> invokeAccessibleRoles;
 
-    public PermissionManager() {
+    public CommandPermissionManager() {
         invokeAccessibleRoles = new HashMap<>();
     }
 

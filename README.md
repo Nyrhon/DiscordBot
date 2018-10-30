@@ -24,6 +24,11 @@ Game commands:
 
 | Command | Function |
 | ------- | -------- |
+| invite x y | Invites person y to a game of type x. |
+| accept | Accepts a pending invitation. |
+| decline | Declines a pending game invitation. |
+| cancel | Cancels a pending game invitation. |
+| move | Performs a move for the game the user is currently playing. |
 
 General commands:
 
@@ -67,6 +72,3 @@ purposes and will fail to authenticate since the Discord application token hasn'
 
 * [JDA](https://github.com/DV8FromTheWorld/JDA) - Discord API Wrapper
 * [LavaPlayer](https://github.com/sedmelluq/lavaplayer) - Audio Player 
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [Hibernate](http://hibernate.org/) - ORM Framework
-* [H2](http://www.h2database.com/html/main.html) - Database

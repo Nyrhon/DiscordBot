@@ -1,4 +1,4 @@
-package de.karmell.discord.bot.core;
+package de.karmell.discord.bot.commands;
 
 /**
  * Simple command which responds with a predefined text to an invoke.

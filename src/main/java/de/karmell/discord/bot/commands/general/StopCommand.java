@@ -1,7 +1,7 @@
 package de.karmell.discord.bot.commands.general;
 
 import de.karmell.discord.bot.Bot;
-import de.karmell.discord.bot.core.Command;
+import de.karmell.discord.bot.commands.Command;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**

@@ -2,7 +2,7 @@ package de.karmell.discord.bot.commands.music;
 
 import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.audio.GuildAudioManager;
-import de.karmell.discord.bot.core.Command;
+import de.karmell.discord.bot.commands.Command;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
