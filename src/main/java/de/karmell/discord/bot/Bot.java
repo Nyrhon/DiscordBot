@@ -4,10 +4,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import de.karmell.discord.bot.audio.GuildAudioManager;
-import de.karmell.discord.bot.commands.games.AcceptCommand;
-import de.karmell.discord.bot.commands.games.CancelCommand;
-import de.karmell.discord.bot.commands.games.InviteCommand;
-import de.karmell.discord.bot.commands.games.MoveCommand;
+import de.karmell.discord.bot.commands.games.*;
 import de.karmell.discord.bot.commands.general.HelpCommand;
 import de.karmell.discord.bot.commands.general.PurgeCommand;
 import de.karmell.discord.bot.commands.general.StopCommand;
@@ -78,7 +75,8 @@ public class Bot {
                 new MoveCommand(),
                 new AcceptCommand(),
                 new CancelCommand(),
-                new InviteCommand()
+                new InviteCommand(),
+                new DeclineCommand()
         );
     }
 
