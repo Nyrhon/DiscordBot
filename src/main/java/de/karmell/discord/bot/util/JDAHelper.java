@@ -8,7 +8,9 @@ public class JDAHelper {
     public User getUserByName(JDA jda, String name, MessageReceivedEvent event) {
         User[] users = new User[1];
         jda.getUsers().forEach((user) -> {
-            if(user.getName().toLowerCase().matches(".*" + name.toLowerCase() + ".*") && event.getGuild().isMember(user)) {
+            if((user.getName().toLowerCase().matches(".*" + name.toLowerCase() + ".*")
+                    || event.getGuild().getMember(user).getNickname().matches(".*" + name.toLowerCase() + ".*")
+                ) && event.getGuild().isMember(user)) {
                 users[0] = user;
             }
         });
