@@ -10,8 +10,4 @@ public interface Game {
     GameType type();
     User creator();
     TextChannel getTxChannel();
-
-    enum GameType {
-        CONNECT_FOUR;
-    }
 }

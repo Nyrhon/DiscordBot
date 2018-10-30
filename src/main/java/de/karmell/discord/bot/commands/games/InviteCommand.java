@@ -3,6 +3,7 @@ package de.karmell.discord.bot.commands.games;
 import de.karmell.discord.bot.commands.Command;
 import de.karmell.discord.bot.games.Game;
 import de.karmell.discord.bot.games.GameManager;
+import de.karmell.discord.bot.games.GameType;
 import de.karmell.discord.bot.games.connectfour.ConnectFour;
 import de.karmell.discord.bot.util.JDAHelper;
 import de.karmell.discord.bot.util.MessageUtil;
@@ -30,8 +31,8 @@ public class InviteCommand extends Command {
                                 MessageUtil.errorMessage("Please use a valid number to pick a game! " + args[0] + " is not a number!")
                         );
                     }
-                    if(type >= 0 && type <= Game.GameType.class.getEnumConstants().length) {
-                        invite(Arrays.copyOfRange(args, 1, args.length), event, Game.GameType.values()[type]);
+                    if(type >= 0 && type <= GameType.class.getEnumConstants().length) {
+                        invite(Arrays.copyOfRange(args, 1, args.length), event, GameType.values()[type]);
                     } else {
                         event.getTextChannel().sendMessage(MessageUtil
                                 .errorMessage(type + " is not assigned to a game. Please use !help invite to get more information" +
@@ -46,7 +47,7 @@ public class InviteCommand extends Command {
         }
     }
 
-    private void invite(String[] args, MessageReceivedEvent event, Game.GameType type) {
+    private void invite(String[] args, MessageReceivedEvent event, GameType type) {
         if(args.length > 0) {
             String name = args[0];
             User user = new JDAHelper().getUserByName(event.getJDA(), name, event);

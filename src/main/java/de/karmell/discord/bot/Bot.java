@@ -120,4 +120,6 @@ public class Bot {
     public static HashMap<String, GuildWrapper> getJoinedGuilds() { return joinedGuilds; }
 
     public static HashMap<String, GuildAudioManager> getGuildAudioManagers() { return guildAudioManagers; }
+
+    public static DatabaseWrapper getDb() { return db; }
 }

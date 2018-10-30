@@ -8,8 +8,10 @@ import net.dv8tion.jda.core.hooks.SubscribeEvent;
 public class ReadyListener {
     @SubscribeEvent
     private void onReady(ReadyEvent event) {
-        event.getJDA().getGuilds().forEach(guild ->
-            Bot.getJoinedGuilds().put(guild.getId(), new GuildWrapper(guild.getId()))
-        );
+        event.getJDA().getGuilds().forEach(guild -> {
+            GuildWrapper gw = new GuildWrapper(guild.getId());
+            Bot.getDb().initBotChannels(guild.getIdLong(), gw);
+            Bot.getJoinedGuilds().put(guild.getId(), gw);
+        });
     }
 }
