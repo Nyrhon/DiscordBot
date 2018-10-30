@@ -1,4 +1,4 @@
-package de.karmell.discord.bot.core;
+package de.karmell.discord.bot.commands;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -50,6 +50,7 @@ public abstract class Command {
     public enum CommandCategory {
         GENERAL("General"),
         MUSIC("Music"),
+        GAMES("Games"),
         GUILD_SPECIFIC("Guild Specific");
 
         private String display;

@@ -4,12 +4,16 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import de.karmell.discord.bot.audio.GuildAudioManager;
+import de.karmell.discord.bot.commands.games.AcceptCommand;
+import de.karmell.discord.bot.commands.games.CancelCommand;
+import de.karmell.discord.bot.commands.games.InviteCommand;
+import de.karmell.discord.bot.commands.games.MoveCommand;
 import de.karmell.discord.bot.commands.general.HelpCommand;
 import de.karmell.discord.bot.commands.general.PurgeCommand;
 import de.karmell.discord.bot.commands.general.StopCommand;
 import de.karmell.discord.bot.commands.music.*;
-import de.karmell.discord.bot.core.CommandManager;
-import de.karmell.discord.bot.core.GuildWrapper;
+import de.karmell.discord.bot.commands.CommandManager;
+import de.karmell.discord.bot.util.GuildWrapper;
 import de.karmell.discord.bot.listeners.GuildJoinedListener;
 import de.karmell.discord.bot.listeners.ReadyListener;
 import de.karmell.discord.bot.util.Config;
@@ -70,7 +74,11 @@ public class Bot {
                 new PlayCommand(),
                 new QueueCommand(),
                 new SkipCommand(),
-                new ShuffleCommand()
+                new ShuffleCommand(),
+                new MoveCommand(),
+                new AcceptCommand(),
+                new CancelCommand(),
+                new InviteCommand()
         );
     }
 

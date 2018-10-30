@@ -1,7 +1,7 @@
 package de.karmell.discord.bot.listeners;
 
 import de.karmell.discord.bot.Bot;
-import de.karmell.discord.bot.core.GuildWrapper;
+import de.karmell.discord.bot.util.GuildWrapper;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.core.hooks.SubscribeEvent;
 

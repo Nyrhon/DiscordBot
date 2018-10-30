@@ -1,4 +1,4 @@
-package de.karmell.discord.bot.core;
+package de.karmell.discord.bot.commands;
 
 import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.entities.User;
