@@ -25,5 +25,8 @@ config.properties
 # Target folder (manifest, library configs)
 /target/*
 
+# Artifact folder
+/out/*
+
 # Idea folder
 /.idea/*
