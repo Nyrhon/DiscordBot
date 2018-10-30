@@ -16,7 +16,7 @@ Music commands:
 | clear | Clears the queue. |
 | leave | Stops playback and makes the bot leave the voice channel. |
 | shuffle | Enables shuffle playback for the current queue. |
-| skip | Skips the current song. |
+| skip x | Skips the current song or x amount of songs. |
 | loop | Starts / stops looping of the current track. |
 
 
