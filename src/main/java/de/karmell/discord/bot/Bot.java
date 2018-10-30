@@ -10,6 +10,7 @@ import de.karmell.discord.bot.commands.general.PurgeCommand;
 import de.karmell.discord.bot.commands.general.StopCommand;
 import de.karmell.discord.bot.commands.music.*;
 import de.karmell.discord.bot.commands.CommandManager;
+import de.karmell.discord.bot.util.DatabaseWrapper;
 import de.karmell.discord.bot.util.GuildWrapper;
 import de.karmell.discord.bot.listeners.GuildJoinedListener;
 import de.karmell.discord.bot.listeners.ReadyListener;
@@ -19,8 +20,11 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.hooks.AnnotatedEventManager;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 // invite link https://discordapp.com/oauth2/authorize?client_id=503216787903479810&scope=bot&permissions=0
@@ -31,15 +35,26 @@ public class Bot {
     private static AudioPlayerManager audioPlayerManager;
     private static HashMap<String, GuildAudioManager> guildAudioManagers;
     private static HashMap<String, GuildWrapper> joinedGuilds;
+    private static DatabaseWrapper db;
+    private static final Logger log = LogManager.getLogger(Bot.class);
 
     public static void main(String[] args) {
+        config = new Config();
+        if(config.BOT_TOKEN.equals("")) {
+            log.error("No bot token found.");
+            System.exit(-1);
+        }
         audioPlayerManager = new DefaultAudioPlayerManager();
         audioPlayerManager.registerSourceManager(new YoutubeAudioSourceManager());
-        config = new Config();
         commandManager = new CommandManager(config.COMMAND_PREFIX);
         registerCommands();
         guildAudioManagers = new HashMap<>();
         joinedGuilds = new HashMap<>();
+        try {
+            db = new DatabaseWrapper();
+        } catch (SQLException e) {
+            log.error("Could not establish database connection.", e);
+        }
 
         JDABuilder jda = new JDABuilder(AccountType.BOT);
         jda.setToken(config.BOT_TOKEN);
@@ -54,7 +69,7 @@ public class Bot {
         try {
             jda.build();
         } catch (LoginException e) {
-            e.printStackTrace();
+            log.error("Could not build JDA.", e);
         }
     }
 
