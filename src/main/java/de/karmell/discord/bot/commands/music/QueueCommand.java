@@ -15,7 +15,7 @@ import java.util.Queue;
  */
 public class QueueCommand extends Command {
     public QueueCommand() {
-        super(new String[]{"queue"}, CommandCategory.MUSIC, "Shows a list of upcoming songs.");
+        super(new String[]{"queue" , "q" ,"playlist"}, CommandCategory.MUSIC, "Shows a list of upcoming songs.");
     }
 
     @Override
