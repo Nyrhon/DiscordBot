@@ -73,5 +73,3 @@ purposes and will fail to authenticate since the Discord application token hasn'
 * [JDA](https://github.com/DV8FromTheWorld/JDA) - Discord API Wrapper
 * [LavaPlayer](https://github.com/sedmelluq/lavaplayer) - Audio Player 
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [Hibernate](http://hibernate.org/) - ORM Framework
-* [H2](http://www.h2database.com/html/main.html) - Database
