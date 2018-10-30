@@ -11,24 +11,24 @@ import java.util.Map;
  * Manages permissions for accessing commands (role based command access)
  */
 public class CommandPermissionManager {
-    private Map<String, List<String>> invokeAccessibleRoles;
+    private Map<String, List<Long>> invokeAccessibleRoles;
 
     public CommandPermissionManager() {
         invokeAccessibleRoles = new HashMap<>();
     }
 
     public void setAccessibleRoles(String invoke, Role... roles) {
-        List<String> roleIds = new ArrayList<>();
+        List<Long> roleIds = new ArrayList<>();
         for(Role r : roles) {
-            roleIds.add(r.getId());
+            roleIds.add(r.getIdLong());
         }
         invokeAccessibleRoles.put(invoke, roleIds);
     }
 
     public boolean canUse(String invoke, Role role) {
-        List<String> roles = invokeAccessibleRoles.get(invoke);
+        List<Long> roles = invokeAccessibleRoles.get(invoke);
         if(roles != null && !roles.isEmpty()) {
-            return roles.contains(role.getId());
+            return roles.contains(role.getIdLong());
         }
         return false;
     }

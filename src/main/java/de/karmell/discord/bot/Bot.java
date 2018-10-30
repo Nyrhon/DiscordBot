@@ -40,6 +40,20 @@ public class Bot {
 
     public static void main(String[] args) {
         config = new Config();
+        try {
+            db = new DatabaseWrapper();
+        } catch (SQLException e) {
+            log.error("Could not establish database connection.", e);
+        }
+        if(args.length > 0 && args[0].equals("-init")) {
+            try {
+                db.init();
+            } catch (SQLException e) {
+                log.error("Could not init database.", e);
+                System.exit(-1);
+            }
+            System.exit(0);
+        }
         if(config.BOT_TOKEN.equals("")) {
             log.error("No bot token found.");
             System.exit(-1);
@@ -50,11 +64,7 @@ public class Bot {
         registerCommands();
         guildAudioManagers = new HashMap<>();
         joinedGuilds = new HashMap<>();
-        try {
-            db = new DatabaseWrapper();
-        } catch (SQLException e) {
-            log.error("Could not establish database connection.", e);
-        }
+
 
         JDABuilder jda = new JDABuilder(AccountType.BOT);
         jda.setToken(config.BOT_TOKEN);
