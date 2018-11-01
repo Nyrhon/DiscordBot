@@ -30,3 +30,4 @@ config.properties
 
 # Idea folder
 /.idea/*
+*.db

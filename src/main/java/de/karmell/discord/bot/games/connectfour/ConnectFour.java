@@ -1,6 +1,7 @@
 package de.karmell.discord.bot.games.connectfour;
 
 import de.karmell.discord.bot.games.Game;
+import de.karmell.discord.bot.games.GameType;
 import de.karmell.discord.bot.games.Player;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.TextChannel;

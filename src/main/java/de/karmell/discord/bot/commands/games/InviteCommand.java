@@ -50,7 +50,7 @@ public class InviteCommand extends Command {
     private void invite(String[] args, MessageReceivedEvent event, GameType type) {
         if(args.length > 0) {
             String name = args[0];
-            User user = new JDAHelper().getUserByName(event.getJDA(), name, event);
+            User user = JDAHelper.getUserByName(event.getJDA(), name, event);
             if(user != null && event.getGuild().isMember(user)) {
                 if(!user.getId().equals(event.getAuthor().getId()) && !user.getId().equals(event.getJDA().getSelfUser().getId())) {
                     String gameName = "";

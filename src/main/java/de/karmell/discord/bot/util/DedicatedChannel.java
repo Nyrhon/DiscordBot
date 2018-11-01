@@ -3,7 +3,15 @@ package de.karmell.discord.bot.util;
 public class DedicatedChannel {
     private long channelId;
     private boolean autoClear;
-    private boolean exclusive;
+
+    public DedicatedChannel() {
+        autoClear = false;
+    }
+
+    public DedicatedChannel(long channelId) {
+        this.channelId = channelId;
+        autoClear = false;
+    }
 
     public long getChannelId() {
         return channelId;
@@ -19,13 +27,5 @@ public class DedicatedChannel {
 
     public void setAutoClear(boolean autoClear) {
         this.autoClear = autoClear;
-    }
-
-    public boolean isExclusive() {
-        return exclusive;
-    }
-
-    public void setExclusive(boolean exclusive) {
-        this.exclusive = exclusive;
     }
 }

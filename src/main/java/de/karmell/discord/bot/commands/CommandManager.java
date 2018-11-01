@@ -1,5 +1,7 @@
 package de.karmell.discord.bot.commands;
 
+import de.karmell.discord.bot.Bot;
+import de.karmell.discord.bot.util.GuildWrapper;
 import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -9,6 +11,8 @@ import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Wrapper class to contain registered commands and handle the logic of invoking commands.
@@ -36,9 +40,27 @@ public class CommandManager {
                 if(command == null) {
                     event.getChannel().sendMessage(MessageUtil.errorMessage("Unknown command.")).queue();
                 } else {
-                    command.invoke(args, event);
+                    if(event.getChannelType().isGuild()) {
+                        GuildWrapper wrapper = Bot.getJoinedGuilds().get(event.getGuild().getId());
+                        if((!wrapper.isExclusiveMode() || wrapper.containsChannel(event.getTextChannel().getIdLong()))
+                                && !wrapper.getDisabledCommands().contains(command.getAliases()[0]) && wrapper.canAccess(command.getAliases()[0], event.getMember().getRoles())) {
+                            command.invoke(args, event);
+                        }
+                    } else {
+                        command.invoke(args, event);
+                    }
                 }
             }
+        }
+        if(event.getChannelType().isGuild()
+                && Bot.getJoinedGuilds().get(event.getGuild().getId()).isAutoClear(event.getTextChannel().getIdLong())) {
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    event.getMessage().delete().queue();
+                }
+            }, 15000);
         }
     }
 
