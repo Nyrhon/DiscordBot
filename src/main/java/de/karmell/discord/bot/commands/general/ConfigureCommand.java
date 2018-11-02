@@ -39,40 +39,29 @@ public class ConfigureCommand extends Command {
                     switch(args[0]) {
                         case "p": {
                             if(args.length > 2) {
-                                Command command = Bot.getCommandManager().getCommand(args[1]);
-                                if(command == null) {
-                                    event.getTextChannel().sendMessage(MessageUtil.errorMessage("Unkown command " + args[1])).queue();
-                                } else {
-                                    List<Role> roles = event.getGuild().getRoles();
-                                    for(Role r : roles) {
-                                        if(r.getName().toLowerCase().equals(args[2].toLowerCase())) {
-                                            wrapper.addAccessibleRole(command.getAliases()[0], r);
-                                            Bot.getDb().addAccessibleRole(event.getGuild().getIdLong(), command.getAliases()[0], r.getIdLong());
-                                            event.getTextChannel().sendMessage(MessageUtil.simpleMessage("**"
-                                                    + r.getName() + "** added to accessible roles for command **"
-                                                    + args[1] + "**.")).queue();
-                                            return;
+                                if(!handleCommandCategoryForRole(args[1], event, wrapper, args[2], "add")) {
+                                    Command command = Bot.getCommandManager().getCommand(args[1]);
+                                    if(command == null) {
+                                        event.getTextChannel().sendMessage(MessageUtil.errorMessage("Unkown command " + args[1])).queue();
+                                    } else {
+                                        Role role = event.getGuild().getRolesByName(args[2], true).get(0);
+                                        if(role != null) {
+                                            addAccessibleRole(command, role, event, wrapper);
                                         }
                                     }
                                 }
                             }
                         } break;
                         case "pr": if(args.length > 2) {
-                            Command command = Bot.getCommandManager().getCommand(args[1]);
-                            if(command == null) {
-                                event.getTextChannel().sendMessage(MessageUtil
-                                        .errorMessage("Unknown command **" + args[1] + "**")).queue();
-                            } else {
-                                List<Role> roles = event.getGuild().getRoles();
-                                for(Role r : roles) {
-                                    if(r.getName().toLowerCase().equals(args[2].toLowerCase())) {
-                                        wrapper.removeAccessibleRole(command.getAliases()[0], r);
-                                        Bot.getDb().removeAccessibleRole(event.getGuild().getIdLong(), command.getAliases()[0], r.getIdLong());
-                                        event.getTextChannel().sendMessage(
-                                                MessageUtil.simpleMessage("**" + r.getName()
-                                                        + "** removed from accessible roles for command **"
-                                                        + args[1] + "**.")).queue();
-                                        return;
+                            if(!handleCommandCategoryForRole(args[1], event, wrapper, args[2], "remove")) {
+                                Command command = Bot.getCommandManager().getCommand(args[1]);
+                                if(command == null) {
+                                    event.getTextChannel().sendMessage(MessageUtil
+                                            .errorMessage("Unknown command **" + args[1] + "**")).queue();
+                                } else {
+                                    Role role = event.getGuild().getRolesByName(args[2], true).get(0);
+                                    if(role != null) {
+                                        removeAccessibleRole(command, role, event, wrapper);
                                     }
                                 }
                             }
@@ -162,4 +151,44 @@ public class ConfigureCommand extends Command {
             event.getChannel().sendMessage(MessageUtil.simpleMessage("**" + search + "** is now re-enabled.")).queue();
         }
     }
+
+    private void addAccessibleRole(Command command, Role role, MessageReceivedEvent event, GuildWrapper wrapper) {
+        wrapper.addAccessibleRole(command.getAliases()[0], role);
+        Bot.getDb().addAccessibleRole(event.getGuild().getIdLong(), command.getAliases()[0], role.getIdLong());
+        event.getTextChannel().sendMessage(MessageUtil.simpleMessage("**"
+                + role.getName() + "** added to accessible roles for command **"
+                + command.getAliases()[0] + "**.")).queue();
+    }
+
+    private void removeAccessibleRole(Command command, Role role, MessageReceivedEvent event, GuildWrapper wrapper) {
+        wrapper.removeAccessibleRole(command.getAliases()[0], role);
+        Bot.getDb().removeAccessibleRole(event.getGuild().getIdLong(), command.getAliases()[0], role.getIdLong());
+        event.getTextChannel().sendMessage(
+                MessageUtil.simpleMessage("**" + role.getName()
+                        + "** removed from accessible roles for command **"
+                        + command.getAliases()[0] + "**.")).queue();
+    }
+
+    private boolean handleCommandCategoryForRole(String query, MessageReceivedEvent event, GuildWrapper wrapper, String roleName, String method) {
+        if(query.startsWith("cc:")) {
+            String display = query.substring(query.indexOf(":") + 1);
+            for(CommandCategory cc : CommandCategory.class.getEnumConstants()) {
+                if(cc.getDisplay().toLowerCase().equals(display.toLowerCase())) {
+                    Role role = event.getGuild().getRolesByName(roleName, true).get(0);
+                    if(role != null) {
+                        Bot.getCommandManager().getCommands().values().stream().distinct()
+                                .sorted(Comparator.comparing(com -> com.getAliases()[0]))
+                                .filter(c -> c.getCategory() == cc).collect(Collectors.toList())
+                                .forEach(c -> {
+                                    if(method.equals("remove")) removeAccessibleRole(c, role, event, wrapper);
+                                    else if(method.equals("add")) addAccessibleRole(c, role, event, wrapper);
+                                });
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }
