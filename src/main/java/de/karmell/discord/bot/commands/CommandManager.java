@@ -9,10 +9,7 @@ import net.dv8tion.jda.core.hooks.SubscribeEvent;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * Wrapper class to contain registered commands and handle the logic of invoking commands.
@@ -38,6 +35,16 @@ public class CommandManager {
                 String[] args = contentRaw.contains(" ") ? contentRaw.substring(contentRaw.indexOf(" ") + 1).split(" ") : new String[0];
                 Command command = commands.get(invoke);
                 if(command == null) {
+                    if(event.getChannelType().isGuild()) {
+                        List<SimpleCommand> scs = Bot.getJoinedGuilds().get(event.getGuild().getId()).getSimpleCommands();
+                        for(int i = 0; i < scs.size(); i++) {
+                            SimpleCommand sc = scs.get(i);
+                            if(sc.getInvoke().equals(invoke)) {
+                                event.getChannel().sendMessage(sc.getResponse()).queue();
+                                return;
+                            }
+                        }
+                    }
                     event.getChannel().sendMessage(MessageUtil.errorMessage("Unknown command.")).queue();
                 } else {
                     if(event.getChannelType().isGuild()) {

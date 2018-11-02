@@ -18,6 +18,7 @@ public class ReadyListener {
             Bot.getDb().initBotChannels(guild.getIdLong(), gw);
             Bot.getDb().initDisabledCommands(guild.getIdLong(), gw);
             Bot.getDb().initAccessibleRoles(guild.getIdLong(), gw);
+            Bot.getDb().initSimpleCommands(guild.getIdLong(), gw);
             Bot.getJoinedGuilds().put(guild.getId(), gw);
         });
     }

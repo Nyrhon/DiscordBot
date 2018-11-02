@@ -127,4 +127,13 @@ public class GuildWrapper {
     }
 
     public Map<String, List<Long>> getAccessibleRoles() { return accessibleRoles; }
+
+    public boolean invokeInUse(String invoke) {
+        for(SimpleCommand sc : simpleCommands) {
+            if(sc.getInvoke().equals(invoke)) {
+                return  true;
+            }
+        }
+        return false;
+    }
 }

@@ -6,6 +6,7 @@ import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager
 import de.karmell.discord.bot.audio.GuildAudioManager;
 import de.karmell.discord.bot.commands.games.*;
 import de.karmell.discord.bot.commands.general.*;
+import de.karmell.discord.bot.commands.general.AddComCommand;
 import de.karmell.discord.bot.commands.music.*;
 import de.karmell.discord.bot.commands.CommandManager;
 import de.karmell.discord.bot.util.DatabaseWrapper;
@@ -22,7 +23,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
-import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -102,7 +102,10 @@ public class Bot {
                 new InviteCommand(),
                 new DeclineCommand(),
                 new ConfigureCommand(),
-                new InfoCommand()
+                new InfoCommand(),
+                new AddComCommand(),
+                new RemoveComCommand(),
+                new UpdateComCommand()
         );
     }
 

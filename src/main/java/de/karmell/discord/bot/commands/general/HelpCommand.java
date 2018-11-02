@@ -2,12 +2,14 @@ package de.karmell.discord.bot.commands.general;
 
 import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.commands.Command;
+import de.karmell.discord.bot.commands.SimpleCommand;
 import de.karmell.discord.bot.util.GuildWrapper;
 import de.karmell.discord.bot.util.MessageUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -62,20 +64,29 @@ public class HelpCommand extends Command {
 
     private String parseCommandCategory(CommandCategory cc, MessageReceivedEvent event) {
         StringBuilder cd = new StringBuilder();
-        // sorts and filters all commands for the currently iterated category
-        Bot.getCommandManager().getCommands().values().stream().distinct()
-                .sorted(Comparator.comparing(com -> com.getAliases()[0]))
-                .filter(c -> c.getCategory() == cc).collect(Collectors.toList())
-                .forEach(c -> {
-                    if(event.getChannelType().isGuild()) {
-                        GuildWrapper wrapper = Bot.getJoinedGuilds().get(event.getGuild().getId());
-                        if(!wrapper.getDisabledCommands().contains(c.getAliases()[0]) && wrapper.canAccess(c.getAliases()[0], event.getMember().getRoles())) {
-                            cd.append("`" + c.getAliases()[0] + ":` " + c.getDescription()+ "\n");
+        if(cc.equals(CommandCategory.GUILD_SPECIFIC)) {
+            List<SimpleCommand> scs = Bot.getJoinedGuilds().get(event.getGuild().getId()).getSimpleCommands();
+            for(int i = 0; i < scs.size(); i++) {
+                cd.append("`" + scs.get(i).getInvoke() + "`" + (i == scs.size() - 1 ? "" : ","));
+            }
+        } else {
+            // sorts and filters all commands for the currently iterated category
+            Bot.getCommandManager().getCommands().values().stream().distinct()
+                    .sorted(Comparator.comparing(com -> com.getAliases()[0]))
+                    .filter(c -> c.getCategory() == cc).collect(Collectors.toList())
+                    .forEach(c -> {
+                        if(!c.getAliases()[0].equals("stop")) {
+                            if (event.getChannelType().isGuild()) {
+                                GuildWrapper wrapper = Bot.getJoinedGuilds().get(event.getGuild().getId());
+                                if (!wrapper.getDisabledCommands().contains(c.getAliases()[0]) && wrapper.canAccess(c.getAliases()[0], event.getMember().getRoles())) {
+                                    cd.append("`" + c.getAliases()[0] + ":` " + c.getDescription() + "\n");
+                                }
+                            } else {
+                                cd.append("`" + c.getAliases()[0] + ":` " + c.getDescription() + "\n");
+                            }
                         }
-                    } else {
-                        cd.append("`" + c.getAliases()[0] + ":` " + c.getDescription()+ "\n");
-                    }
-                });
+                    });
+        }
         return cd.toString();
     }
 }

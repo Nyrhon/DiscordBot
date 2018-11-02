@@ -1,5 +1,6 @@
 package de.karmell.discord.bot.util;
 
+import de.karmell.discord.bot.commands.SimpleCommand;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -34,6 +35,10 @@ public class DatabaseWrapper {
                 "GuildID INTEGER(8) NOT NULL," +
                 "Invoke VARCHAR NOT NULL," +
                 "RoleID INTEGER(8) NOT NULL)");
+        statement.executeUpdate("create table SimpleCommands (" +
+                "GuildID INTEGER(8) NOT NULL," +
+                "Invoke VARCHAR NOT NULL," +
+                "Result VARCHAR NOT NULL)");
         statement.close();
     }
 
@@ -182,6 +187,60 @@ public class DatabaseWrapper {
             statement.close();
         } catch (SQLException e) {
             log.error("Could not remove disabled command.", e);
+        }
+    }
+
+    public void addSimpleCommand(long guildID, String invoke, String result) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into SimpleCommands (GuildID, Invoke, Result)  values (?, ?, ?)");
+            preparedStatement.setLong(1, guildID);
+            preparedStatement.setString(2, invoke);
+            preparedStatement.setString(3, result);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            log.error("Could not add simple command.", e);
+        }
+    }
+
+    public void removeSimpleCommand(long guildID, String invoke) {
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("delete from SimpleCommands where GuildID = " + guildID + " and Invoke = '" + invoke + "'");
+            statement.close();
+        } catch (SQLException e) {
+            log.error("Could not remove simple command.", e);
+        }
+    }
+
+    public void updateSimpleCommand(long guildID, String invoke, String newResult) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("update SimpleCommands set Result = ? where GuildID = ? and Invoke = ?");
+            preparedStatement.setLong(2, guildID);
+            preparedStatement.setString(1, newResult);
+            preparedStatement.setString(3, invoke);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            log.error("Could not update simple command.", e);
+        }
+    }
+
+    public void initSimpleCommands(long guildID, GuildWrapper wrapper) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("select * from SimpleCommands where GuildID = " + guildID);
+            List<SimpleCommand> scs = new ArrayList<>();
+            while(result.next()) {
+                SimpleCommand sc = new SimpleCommand();
+                sc.setInvoke(result.getString("Invoke"));
+                sc.setResponse(result.getString("Result"));
+                scs.add(sc);
+            }
+            wrapper.setSimpleCommands(scs);
+            statement.close();
+        } catch (SQLException e) {
+            log.error("Could not init simple commands for " + guildID, e);
         }
     }
 }

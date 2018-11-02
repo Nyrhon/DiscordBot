@@ -25,7 +25,7 @@ public class PurgeCommand extends Command {
                 } catch (NumberFormatException e) {
                     event.getChannel().sendMessage("Invalid number specified.").queue();
                 }
-                if(num < 1 || num > 100) {
+                if(num < 2 || num > 100) {
                     event.getChannel().sendMessage("Number exceeding range of 1-100").queue();
                 } else {
                     try {
