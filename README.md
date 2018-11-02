@@ -66,12 +66,12 @@ Configuration commands:
 
 ## Self hosting
 
-The bot can be self hosted to be used on your own Discord guildId(s).
+The bot can be self hosted to be used on your own Discord Guild(s).
 To use the bot simply build the project with
 ```
 mvn install
 ```
-in the root directory and run the JAR.
+in the root directory and run the JAR or download the JAR from the releases section to get a stable version.
 On first startup add -init as an argument to make the program run shortly to create the db with it's schema and the empty config file. Afterwards fill in the information in the config file and start up the program without any arguments.
 
 ### Configuration
