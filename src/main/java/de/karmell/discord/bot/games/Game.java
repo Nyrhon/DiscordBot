@@ -1,7 +1,7 @@
 package de.karmell.discord.bot.games;
 
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 public interface Game {
     boolean hasStarted();

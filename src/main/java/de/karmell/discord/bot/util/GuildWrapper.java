@@ -1,7 +1,7 @@
 package de.karmell.discord.bot.util;
 
 import de.karmell.discord.bot.commands.SimpleCommand;
-import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.api.entities.Role;
 
 import java.util.*;
 import java.util.stream.Collectors;

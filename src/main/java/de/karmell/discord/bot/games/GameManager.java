@@ -1,6 +1,6 @@
 package de.karmell.discord.bot.games;
 
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.ArrayList;
 import java.util.HashMap;

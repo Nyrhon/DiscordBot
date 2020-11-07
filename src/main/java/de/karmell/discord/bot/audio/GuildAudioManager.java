@@ -7,8 +7,8 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.util.MessageUtil;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.util.*;
 import java.util.List;
@@ -97,8 +97,9 @@ public class GuildAudioManager extends AudioEventAdapter {
     {
         if(endReason.mayStartNext) {
             if (loop) {
-                player.startTrack(track.makeClone(), false);
-                channel.sendMessage(MessageUtil.songInfo("Now playing", player.getPlayingTrack().getInfo())).queue();
+                queue.add(track.makeClone());
+                skip();
+                loop = true;
             } else {
                 skip();
             }

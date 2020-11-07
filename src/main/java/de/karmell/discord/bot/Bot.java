@@ -14,11 +14,10 @@ import de.karmell.discord.bot.util.GuildWrapper;
 import de.karmell.discord.bot.listeners.GuildJoinedListener;
 import de.karmell.discord.bot.listeners.ReadyListener;
 import de.karmell.discord.bot.util.Config;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.hooks.AnnotatedEventManager;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.hooks.AnnotatedEventManager;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -65,11 +64,10 @@ public class Bot {
         joinedGuilds = new HashMap<>();
 
 
-        JDABuilder jda = new JDABuilder(AccountType.BOT);
-        jda.setToken(config.BOT_TOKEN);
+        JDABuilder jda = JDABuilder.createDefault(config.BOT_TOKEN);
         jda.setAutoReconnect(true);
         jda.setStatus(OnlineStatus.ONLINE);
-        jda.setGame(Game.of(Game.GameType.DEFAULT, config.GAME));
+        jda.setActivity(Activity.of(Activity.ActivityType.LISTENING, config.GAME));
         AnnotatedEventManager eventManager = new AnnotatedEventManager();
         eventManager.register(commandManager);
         eventManager.register(new ReadyListener());

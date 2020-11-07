@@ -5,7 +5,7 @@ import de.karmell.discord.bot.games.Game;
 import de.karmell.discord.bot.games.GameManager;
 import de.karmell.discord.bot.games.connectfour.ConnectFour;
 import de.karmell.discord.bot.util.MessageUtil;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MoveCommand extends Command {
     public MoveCommand() {

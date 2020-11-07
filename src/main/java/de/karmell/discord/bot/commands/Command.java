@@ -1,6 +1,6 @@
 package de.karmell.discord.bot.commands;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Basic Command class to contain aliases, a CommandCategory and description.

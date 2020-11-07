@@ -5,9 +5,9 @@ import de.karmell.discord.bot.commands.Command;
 import de.karmell.discord.bot.util.DedicatedChannel;
 import de.karmell.discord.bot.util.GuildWrapper;
 import de.karmell.discord.bot.util.MessageUtil;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class InfoCommand extends Command {
     public InfoCommand() {

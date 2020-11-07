@@ -4,7 +4,7 @@ import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.commands.Command;
 import de.karmell.discord.bot.commands.SimpleCommand;
 import de.karmell.discord.bot.util.MessageUtil;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Iterator;
 import java.util.List;

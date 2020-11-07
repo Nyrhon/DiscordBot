@@ -2,9 +2,9 @@ package de.karmell.discord.bot.listeners;
 
 import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.util.GuildWrapper;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.core.hooks.SubscribeEvent;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.hooks.SubscribeEvent;
 
 public class GuildJoinedListener {
     @SubscribeEvent

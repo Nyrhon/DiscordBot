@@ -1,10 +1,9 @@
 package de.karmell.discord.bot.listeners;
 
 import de.karmell.discord.bot.Bot;
-import de.karmell.discord.bot.util.DedicatedChannel;
 import de.karmell.discord.bot.util.GuildWrapper;
-import net.dv8tion.jda.core.events.ReadyEvent;
-import net.dv8tion.jda.core.hooks.SubscribeEvent;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.hooks.SubscribeEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -3,9 +3,9 @@ package de.karmell.discord.bot.games.connectfour;
 import de.karmell.discord.bot.games.Game;
 import de.karmell.discord.bot.games.GameType;
 import de.karmell.discord.bot.games.Player;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
 import java.util.Random;
@@ -144,21 +144,21 @@ public class ConnectFour implements Game {
 
     public EmbedBuilder getPlayFieldAsEmbed() {
         EmbedBuilder eb = new EmbedBuilder();
-        String description = "";
-        for(int i = 0; i < playField.length; i++) {
-            String row = "";
-            for(int j = 0; j < playField[i].length; j++) {
-                if(playField[i][j] == 0) {
-                    row += ":white_circle: ";
-                } else if(playField[i][j] == 1) {
-                    row += ":large_blue_circle: ";
-                } else if(playField[i][j] == 2) {
-                    row += ":red_circle: ";
+        StringBuilder description = new StringBuilder();
+        for (int[] ints : playField) {
+            StringBuilder row = new StringBuilder();
+            for (int anInt : ints) {
+                if (anInt == 0) {
+                    row.append(":white_circle: ");
+                } else if (anInt == 1) {
+                    row.append(":blue_circle: ");
+                } else if (anInt == 2) {
+                    row.append(":red_circle: ");
                 }
             }
-            description += row + "\n";
+            description.append(row).append("\n");
         }
-        eb.setDescription(description);
+        eb.setDescription(description.toString());
         if(isTurn(player1.getUser())) {
             setTitleAndColor(eb, player2, player1);
         } else {

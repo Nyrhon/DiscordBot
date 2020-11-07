@@ -6,9 +6,9 @@ import de.karmell.discord.bot.util.DedicatedChannel;
 import de.karmell.discord.bot.util.GuildWrapper;
 import de.karmell.discord.bot.util.JDAHelper;
 import de.karmell.discord.bot.util.MessageUtil;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Comparator;
 import java.util.Iterator;

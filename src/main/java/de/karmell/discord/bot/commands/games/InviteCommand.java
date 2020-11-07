@@ -7,8 +7,8 @@ import de.karmell.discord.bot.games.GameType;
 import de.karmell.discord.bot.games.connectfour.ConnectFour;
 import de.karmell.discord.bot.util.JDAHelper;
 import de.karmell.discord.bot.util.MessageUtil;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Arrays;
 

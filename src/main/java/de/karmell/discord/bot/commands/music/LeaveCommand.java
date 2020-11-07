@@ -3,7 +3,7 @@ package de.karmell.discord.bot.commands.music;
 import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.audio.GuildAudioManager;
 import de.karmell.discord.bot.commands.Command;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Makes the bot leave the voice channel and delete the guild audio manager

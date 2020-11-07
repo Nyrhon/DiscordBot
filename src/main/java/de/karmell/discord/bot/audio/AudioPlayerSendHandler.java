@@ -2,7 +2,11 @@ package de.karmell.discord.bot.audio;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
-import net.dv8tion.jda.core.audio.AudioSendHandler;
+import com.sedmelluq.discord.lavaplayer.track.playback.MutableAudioFrame;
+import net.dv8tion.jda.api.audio.AudioSendHandler;
+
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
 
 
 /**
@@ -11,36 +15,28 @@ import net.dv8tion.jda.core.audio.AudioSendHandler;
 public class AudioPlayerSendHandler implements AudioSendHandler
 {
     private final AudioPlayer audioPlayer;
-    private AudioFrame lastFrame;
+    private final ByteBuffer buffer;
+    private final MutableAudioFrame frame;
 
-    public AudioPlayerSendHandler(AudioPlayer audioPlayer)
-    {
+    public AudioPlayerSendHandler(AudioPlayer audioPlayer) {
         this.audioPlayer = audioPlayer;
+        this.buffer = ByteBuffer.allocate(1024);
+        this.frame = new MutableAudioFrame();
+        this.frame.setBuffer(buffer);
     }
 
-    public boolean canProvide()
-    {
-        if (lastFrame == null)
-        {
-            lastFrame = audioPlayer.provide();
-        }
-
-        return lastFrame != null;
+    @Override
+    public boolean canProvide() {
+        return audioPlayer.provide(frame);
     }
 
-    public byte[] provide20MsAudio()
-    {
-        if (lastFrame == null)
-        {
-            lastFrame = audioPlayer.provide();
-        }
-
-        byte[] data = lastFrame != null ? lastFrame.getData() : null;
-        lastFrame = null;
-
-        return data;
+    @Override
+    public ByteBuffer provide20MsAudio() {
+        ((Buffer) buffer).flip();
+        return buffer;
     }
 
+    @Override
     public boolean isOpus()
     {
         return true;

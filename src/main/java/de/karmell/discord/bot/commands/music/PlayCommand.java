@@ -8,10 +8,10 @@ import de.karmell.discord.bot.Bot;
 import de.karmell.discord.bot.audio.GuildAudioManager;
 import de.karmell.discord.bot.commands.Command;
 import de.karmell.discord.bot.util.MessageUtil;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 

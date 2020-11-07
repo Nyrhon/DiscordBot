@@ -4,7 +4,7 @@ import de.karmell.discord.bot.commands.Command;
 import de.karmell.discord.bot.games.Game;
 import de.karmell.discord.bot.games.GameManager;
 import de.karmell.discord.bot.games.connectfour.ConnectFour;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class AcceptCommand extends Command {
     public AcceptCommand() {

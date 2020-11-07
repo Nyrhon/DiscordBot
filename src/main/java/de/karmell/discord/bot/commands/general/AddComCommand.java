@@ -5,7 +5,7 @@ import de.karmell.discord.bot.commands.Command;
 import de.karmell.discord.bot.commands.SimpleCommand;
 import de.karmell.discord.bot.util.GuildWrapper;
 import de.karmell.discord.bot.util.MessageUtil;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class AddComCommand extends Command {
     public AddComCommand() {
